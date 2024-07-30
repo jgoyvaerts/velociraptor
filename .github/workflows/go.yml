@@ -61,13 +61,9 @@ jobs:
       run: |
         mkdir ./output/
         export PATH=$PATH:~/go/bin/
-        go run make.go -v UpdateDependentTools
-        go run make.go -v Linux
-        go run make.go -v LinuxArm64
-        GOARCH=386 GOOS=linux go run make.go -v Linux # Build 32-bit Linux binary
-        go run make.go -v Windows
-        go run make.go -v Windowsx86
-        go run make.go -v DarwinBase
+        export GOARCH=386
+        export GOOS=linux
+        go run make.go -v Linux # Build 32-bit Linux binary
 
     - name: StoreBinaries
       uses: actions/upload-artifact@v3
