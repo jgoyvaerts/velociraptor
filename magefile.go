@@ -206,7 +206,7 @@ func Release() error {
 		return err
 	}
 
-	if runtime.GOOS == "linux" {
+	if runtime.GOOS == "" {
 		err := Linux()
 		if err != nil {
 			return err
@@ -265,6 +265,13 @@ func LinuxMusl386() error {
 		disable_cgo:   true,
 		extra_ldflags: "-linkmode external -extldflags \"-static\"",
 		arch:          "386"}.Run()
+}
+
+func Linux386() error {
+	return Builder{
+		extra_tags: " release yara disable_gui ",
+		goos:       "linux",
+		arch:       "386"}.Run()
 }
 
 // A Linux binary without the GUI
