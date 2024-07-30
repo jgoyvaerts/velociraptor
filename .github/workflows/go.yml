@@ -2,10 +2,9 @@
 name: Linux Build All Arches
 #on: [pull_request]
 on:
-  pull_request:
-    types: [closed]
-#    branches:
-#      - master
+  push:
+    branches:
+      - master
 
 jobs:
   build:
@@ -66,7 +65,7 @@ jobs:
         go run make.go -v UpdateDependentTools
         go run make.go -v Linux
         go run make.go -v LinuxArm64
-        go run make.go -v Linux386
+        GOARCH=386 GOOS=linux go run make.go -v Linux # Build 32-bit Linux binary
         go run make.go -v Windows
         go run make.go -v Windowsx86
         go run make.go -v DarwinBase
